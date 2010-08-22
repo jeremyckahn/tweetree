@@ -1,0 +1,56 @@
+body{
+	margin:			0px;
+	padding:		0px;	
+}
+
+#twitter-output{
+	border:			solid 1px #f0f;
+	font-family:	helvetica, arial;
+	font-size:		12px;
+	margin:			0px auto;
+	/*position:		relative;*/
+	position:		static;
+	width:			960px;
+}
+
+.branch-container{
+	position:		relative;
+	width:			960px;/**/
+}
+
+.root,
+.branch{
+	float: 			left;
+	margin-right: 	-120px; /* Silly IE fix */
+	position:		absolute;
+	text-align:		center;
+	width:			120px;
+}
+
+.root{
+	border:			solid 1px #f00;
+	/*position:		absolute;*/
+}
+
+.branch{
+	border:			solid 1px #00f;
+	/*position:		absolute;*/
+}
+
+/*.root .word,
+.branch .word{
+	display:		block;
+	float:			left;
+	margin:			0px auto;
+	padding:		0px 5px;
+}*/
+
+.hidden{
+	display:		none;
+}
+
+#loading-indicator{
+	left:			10px;
+	position:		fixed;
+	top:			10px;	
+}
