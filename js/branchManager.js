@@ -60,7 +60,7 @@ branchManager = {
 	},
 	
 	storeBranch : function(data, final){
-		if (!!data.results){			
+		if (!!data.results){
 			this.twobjects.push(data.results[0]);
 		}
 		else{

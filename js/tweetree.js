@@ -49,36 +49,45 @@ tweetree = {
 						
 						showLoadingIndicator(false);
 						
+						var root = $(tweetree.container).find(select.root);
+						
 						for (this.i = 0; this.i < data.twobjects.length; this.i++){
 								
 							// Create the branch element, place it with CSS and jQuery, add it to the branch, add the branch to the tree
-							$(tweetree.container)
-								.append($(data.twobjects[this.i].text.toBranch())
-									.css({
-										left : ((branchManager.width.base / (data.twobjects.length - 1)) * this.i) - (branchManager.width.ofBranch / 2),
-										top : branchManager.height.base + (this.i % 2 ? branchManager.height.alternate : 0) + branchManager.height.variance()
-									})
-								)
-							.end();
-							
-							/*var temp = $(data.twobjects[this.i].text.toBranch());
+							var branch = $(data.twobjects[this.i].text.toBranch())
+								.css({
+									left : root.position().left,
+									top : root.position().top
+								});
 								
-							$.data(temp, 'destLeft', ((branchManager.width.base / (data.twobjects.length - 1)) * this.i) - (branchManager.width.ofBranch / 2));
-							$.data(temp, 'destTop', branchManager.height.base + (this.i % 2 ? branchManager.height.alternate : 0) + branchManager.height.variance());
+							
+							$(branch).data('dest', 
+								{
+									left : ((branchManager.width.base / (data.twobjects.length - 1)) * this.i) - (branchManager.width.ofBranch / 2),
+									top : branchManager.height.base + (this.i % 2 ? branchManager.height.alternate : 0) + branchManager.height.variance()
+								}
+							)
 							
 							$(tweetree.container)
-								.append(temp)*/
+								.append(branch)
+							.end();
+
 						}
 						
-						var container = $(tweetree.container).find(select.root);
+						var root = $(tweetree.container).find(select.root);
 						
-						$(tweetree.container).find(select.branch).animate(
-							{ 
-								left : container.position().left,
-								top : container.position().top
-							}, 
-							{duration : 1000}
-						);
+						$(tweetree.container).find(select.branch).each(function(){
+							dest = $(this).data('dest');
+							
+							$(this).animate(
+								{ 
+									left : dest.left,
+									//top : root.position().top
+									top : dest.top
+								}, 
+								{duration : 1000}
+							);
+						});
 						
 						this.totalTweetsOutputted = $(select.root + prop.rootCount.toString() + select.branch);
 						
