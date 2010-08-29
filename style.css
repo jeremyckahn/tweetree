@@ -3,18 +3,32 @@ body{
 	padding:		0px;	
 }
 
+#draggable-container{
+	/*background: 	#123456;*/
+	height:			100%;
+	position:		absolute;
+	width:			100%;
+}
+
+#drag-constrain{
+	overflow:		hidden;
+	position:		absolute;
+}
+
 #twitter-output{
-	border:			solid 1px #f0f;
+	/*border:			solid 1px #f0f;*/
 	font-family:	helvetica, arial;
 	font-size:		12px;
 	margin:			0px auto;
 	/*position:		relative;*/
-	position:		static;
+	/*position:		static;*/
+	position:		absolute;
 	width:			960px;
 }
 
 .branch-container{
-	position:		relative;
+	/*position:		relative;*/
+	position:		absolute;
 	width:			960px;/**/
 }
 
@@ -35,6 +49,10 @@ body{
 .branch{
 	border:			solid 1px #00f;
 	/*position:		absolute;*/
+}
+
+.word:hover{
+	cursor:			pointer;
 }
 
 /*.root .word,

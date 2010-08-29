@@ -1,6 +1,8 @@
 branchManager = {
 	debug : false,
 	
+	maxBranches : 9,
+	
 	onComplete : function(){},
 	
 	root : {
@@ -33,6 +35,11 @@ branchManager = {
 		
 		this.root.string = tweet;
 		this.root.array = words;
+		
+		if (words.length > branchManager.maxBranches){
+			// Word overflow!
+			words.length = branchManager.maxBranches;
+		}
 					
 		for(this.i = 0; this.i < words.length; this.i++){
 			searchFor(

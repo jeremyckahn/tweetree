@@ -14,7 +14,9 @@ select = {
 	branch			: '.branch',
 	branchContainer : '.branch-container',
 	word			: '.word',
-	loadingIndicator: '#loading-indicator'
+	loadingIndicator: '#loading-indicator',
+	draggableContainer : '#draggable-container',
+	dragConstrain	: '#drag-constrain'
 };
 
 prop = {
@@ -51,13 +53,49 @@ $(function(){
 				
 			});
 		});
+		
+	$(window)
+		.resize(updateDragHandles)
+		.resize();
+		
+	select.cached.draggableContainer
+		.draggable({
+			stop : function(event, ui){
+				select.cached.twitterOutput.css({ //draggableContainer
+					left : pxToInt(select.cached.twitterOutput.css('left')) + pxToInt(select.cached.draggableContainer.css('left')),
+					top : pxToInt(select.cached.twitterOutput.css('top')) + pxToInt(select.cached.draggableContainer.css('top'))
+				});
+				
+				select.cached.draggableContainer.css({
+					left : 0,
+					top: 0
+				});
+				
+			}
+		})
 	
 	tweetree.init({
 		query : 'jeremyckahn',
 		container : select.cached.twitterOutput
 	});
 	
+	select.cached.twitterOutput.centerInContainer();
+	
 });
+
+function pxToInt(str){
+	return parseInt(str.replace(/px/gi, ''));
+}
+
+function updateDragHandles(){
+	select.cached.dragConstrain
+		.height($(window).height())
+		.width($(window).width());
+	
+	select.cached.draggableContainer
+		.height($(window).height())
+		.width($(window).width());
+}
 
 String.prototype.toRoot = function(op){
 	return twelement.apply(this, ['root', op]);
