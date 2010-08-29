@@ -43,6 +43,9 @@ $(function(){
 		.live('click', function(){
 			var coord = $(this).offset();
 			
+			coord.left -= pxToInt(select.cached.twitterOutput.css('left'));
+			coord.top -= pxToInt(select.cached.twitterOutput.css('top'));
+			
 			tweetree.init({
 				query : $(this).html(),
 				container : select.cached.twitterOutput,
@@ -61,7 +64,7 @@ $(function(){
 	select.cached.draggableContainer
 		.draggable({
 			stop : function(event, ui){
-				select.cached.twitterOutput.css({ //draggableContainer
+				select.cached.twitterOutput.css({
 					left : pxToInt(select.cached.twitterOutput.css('left')) + pxToInt(select.cached.draggableContainer.css('left')),
 					top : pxToInt(select.cached.twitterOutput.css('top')) + pxToInt(select.cached.draggableContainer.css('top'))
 				});
