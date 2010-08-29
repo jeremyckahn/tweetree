@@ -44,8 +44,11 @@ $(function(){
 			tweetree.init({
 				query : $(this).html(),
 				container : select.cached.twitterOutput,
+				xOrigin : coord.left - (branchManager.width.base / 2),
+				yOrigin : coord.top,
 				x : coord.left - (branchManager.width.base / 2),
 				y : coord.top + prop.verticalBranchSpacing
+				
 			});
 		});
 	

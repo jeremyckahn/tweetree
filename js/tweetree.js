@@ -9,25 +9,33 @@ tweetree = {
 	init : function(options){
 		if (!options)
 			options = {};
+			
+		tweetree.options = options;
 		
 		treequery = !!options.query ? options.query : 'hello';
 		tweetree.container = !!options.container ? options.container : document.body;
 		
 		this.containerInstanceId = 'branch-container' + prop.rootCount.toString();
 		
+		// Make the container
 		$(tweetree.container).append($(make('div'))
 			.addClass('branch-container')
 			.attr('id', this.containerInstanceId));
 			
+		// Give the container an ID
 		tweetree.container = $('#' + this.containerInstanceId);
 		
-		if (!!options.x && !!options.y){
+		if (!!tweetree.options.x || !!tweetree.options.y) {
 			tweetree.container.css({
-				position : 'absolute',
-				left : options.x,
-				top : options.y
-			});	
+				position: 'absolute',
+				left: tweetree.options.xOrigin,
+				top: tweetree.options.yOrigin,
+			});
 		}
+		
+		tweetree.container.css({
+			opacity: 0
+		});
 		
 		showLoadingIndicator(true);
 		
@@ -43,7 +51,18 @@ tweetree = {
 					response = data.results[0].text;
 					
 					$(tweetree.container).append(response.toRoot());
-					$(tweetree.container).find('.root').centerInContainer();
+					$(tweetree.container).find(select.root).centerInContainer();
+						
+					tweetree.container.animate(
+						{ // props
+							left : tweetree.options.x,
+							top : tweetree.options.y,
+							opacity : 1
+						}, 
+						{ // ops
+							duration: 1000
+						}
+					);
 					
 					branchManager.onComplete = function(data){
 						
@@ -57,7 +76,8 @@ tweetree = {
 							var branch = $(data.twobjects[this.i].text.toBranch())
 								.css({
 									left : root.position().left,
-									top : root.position().top
+									top : root.position().top,
+									opacity :0
 								});
 								
 							
@@ -82,8 +102,8 @@ tweetree = {
 							$(this).animate(
 								{ 
 									left : dest.left,
-									//top : root.position().top
-									top : dest.top
+									top : dest.top,
+									opacity : 1
 								}, 
 								{duration : 1000}
 							);
