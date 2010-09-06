@@ -14,6 +14,7 @@ select = {
 	branch			: '.branch',
 	branchContainer : '.branch-container',
 	word			: '.word',
+	branchWord		: '.branch .word',
 	loadingIndicator: '#loading-indicator',
 	draggableContainer : '#draggable-container',
 	dragConstrain	: '#drag-constrain'
@@ -33,7 +34,7 @@ $(function(){
 	// Do some general setup
 	select.cache();
 	
-	$(select.word)
+	$(select.branchWord)
 		.live('mouseover', function(){
 			$(this).css({background : 'yellow'});
 		})
@@ -51,7 +52,7 @@ $(function(){
 				container : select.cached.twitterOutput,
 				xOrigin : coord.left - (branchManager.width.base / 2),
 				yOrigin : coord.top,
-				x : coord.left - (branchManager.width.base / 2),
+				x : coord.left - (branchManager.width.base / 2) + ( $(this).parent().data('dest').left - (branchManager.width.base / 2) ),
 				y : coord.top + prop.verticalBranchSpacing,
 				onRootLoad : slideToNewBranch
 				
@@ -90,11 +91,12 @@ $(function(){
 });
 
 function slideToNewBranch(){ 
-	
+	log(-tweetree.options.x)
 	select.cached.twitterOutput.animate(
 		{ // css
 			// CRAAAAZY math
-			left : -tweetree.options.x + (branchManager.width.ofBranch / 2),
+			//left : -tweetree.options.x + (branchManager.width.ofBranch / 2),
+			left : -tweetree.options.x + ( ($(window).width() - branchManager.width.base) / 2 ),
 			top : -tweetree.options.y + ($(window).height() / 2) - (branchManager.height.base + branchManager.height.alternate)
 		}, 
 		{ // options
