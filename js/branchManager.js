@@ -37,7 +37,6 @@ branchManager = {
 		this.root.array = words;
 		
 		if (words.length > branchManager.maxBranches){
-			// Word overflow!
 			words.length = branchManager.maxBranches;
 		}
 					

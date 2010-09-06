@@ -1,8 +1,6 @@
 tweetree = {
 	debug : true,
 	
-	branches : [],
-	
 	container : document.body,
 	
 	// Call out to twitter for the initial query, and pop it out, displayed.
@@ -60,7 +58,8 @@ tweetree = {
 							opacity : 1
 						}, 
 						{ // ops
-							duration: 1000
+							duration: 1000,
+							complete : tweetree.options.onRootLoad || null
 						}
 					);
 					

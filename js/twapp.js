@@ -21,7 +21,7 @@ select = {
 
 prop = {
 	rootCount : 0,
-	verticalBranchSpacing : 180
+	verticalBranchSpacing : 400
 };
 
 debug = false;
@@ -52,7 +52,8 @@ $(function(){
 				xOrigin : coord.left - (branchManager.width.base / 2),
 				yOrigin : coord.top,
 				x : coord.left - (branchManager.width.base / 2),
-				y : coord.top + prop.verticalBranchSpacing
+				y : coord.top + prop.verticalBranchSpacing,
+				onRootLoad : slideToNewBranch
 				
 			});
 		});
@@ -79,12 +80,28 @@ $(function(){
 	
 	tweetree.init({
 		query : 'jeremyckahn',
-		container : select.cached.twitterOutput
+		container : select.cached.twitterOutput,
+		onRootLoad : slideToNewBranch,
+		y : ($(window).height() / 2) - (branchManager.height.base + branchManager.height.alternate)
 	});
 	
 	select.cached.twitterOutput.centerInContainer();
 	
 });
+
+function slideToNewBranch(){ 
+	
+	select.cached.twitterOutput.animate(
+		{ // css
+			// CRAAAAZY math
+			left : -tweetree.options.x + (branchManager.width.ofBranch / 2),
+			top : -tweetree.options.y + ($(window).height() / 2) - (branchManager.height.base + branchManager.height.alternate)
+		}, 
+		{ // options
+			duration : 1000
+		}
+	);	
+}
 
 function pxToInt(str){
 	return parseInt(str.replace(/px/gi, ''));
