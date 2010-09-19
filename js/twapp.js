@@ -91,13 +91,12 @@ $(function(){
 });
 
 function slideToNewBranch(){ 
-	log(-tweetree.options.x)
+	
 	select.cached.twitterOutput.animate(
 		{ // css
 			// CRAAAAZY math
-			//left : -tweetree.options.x + (branchManager.width.ofBranch / 2),
-			left : -tweetree.options.x + ( ($(window).width() - branchManager.width.base) / 2 ),
-			top : -tweetree.options.y + ($(window).height() / 2) - (branchManager.height.base + branchManager.height.alternate)
+			left : -tweetree.options.x + ( ($(window).width() - branchManager.width.base) / 2 ) || select.cached.twitterOutput.css('left'),
+			top : -tweetree.options.y + ($(window).height() / 2) - (branchManager.height.base + branchManager.height.alternate) || select.cached.twitterOutput.css('top')
 		}, 
 		{ // options
 			duration : 1000

@@ -5,8 +5,9 @@ tweetree = {
 	
 	// Call out to twitter for the initial query, and pop it out, displayed.
 	init : function(options){
-		if (!options)
+		if (!options) {
 			options = {};
+		}
 			
 		tweetree.options = options;
 		
@@ -27,7 +28,7 @@ tweetree = {
 			tweetree.container.css({
 				position: 'absolute',
 				left: tweetree.options.xOrigin,
-				top: tweetree.options.yOrigin,
+				top: tweetree.options.yOrigin
 			});
 		}
 		
@@ -53,8 +54,8 @@ tweetree = {
 						
 					tweetree.container.animate(
 						{ // props
-							left : tweetree.options.x,
-							top : tweetree.options.y,
+							left : tweetree.options.x || 0,
+							top : tweetree.options.y || 0,
 							opacity : 1
 						}, 
 						{ // ops
@@ -85,7 +86,7 @@ tweetree = {
 									left : ((branchManager.width.base / (data.twobjects.length - 1)) * this.i) - (branchManager.width.ofBranch / 2),
 									top : branchManager.height.base + (this.i % 2 ? branchManager.height.alternate : 0) + branchManager.height.variance()
 								}
-							)
+							);
 							
 							$(tweetree.container)
 								.append(branch)
