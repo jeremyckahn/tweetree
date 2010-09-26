@@ -72,3 +72,8 @@ body{
 	position:		fixed;
 	top:			10px;	
 }
+
+svg{
+	/*background: #123456;*/
+	z-index:		-1000;	
+}

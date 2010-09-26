@@ -25,6 +25,33 @@ prop = {
 	verticalBranchSpacing : 400
 };
 
+lineDisplay = {
+	canvas: {},
+	container: {},
+	
+	init: function(x1, y1, x2, y2){
+		lineDisplay.canvas = new Raphael(x1, y1, x2, y2);
+		
+		// Temporary
+		// Creates circle at x = 50, y = 40, with radius 10
+		/*
+		lineDisplay.canvas.circle = lineDisplay.canvas.circle(50, 40, 10);
+		// Sets the fill attribute of the circle to red (#f00)
+		lineDisplay.canvas.circle.attr("fill", "#f00");*/
+		
+		lineDisplay.container = $($(lineDisplay.canvas)[0].canvas).attr('id', 'lineDisplayCanvas')
+		$( lineDisplay.container ).appendTo(select.cached.twitterOutput)
+	},
+	
+	resize: function(){
+		
+		$(lineDisplay.container)
+			.height($(window).height() - pxToInt(select.cached.twitterOutput.css('top')))
+				.width($(window).width() - pxToInt(select.cached.twitterOutput.css('left')))
+	}
+	
+};
+
 debug = false;
 
 branches = [];
@@ -76,6 +103,11 @@ $(function(){
 					top: 0
 				});
 				
+			},
+			
+			drag: function(){
+				//lineDisplay.move();
+				lineDisplay.resize();
 			}
 		})
 	
@@ -87,6 +119,8 @@ $(function(){
 	});
 	
 	select.cached.twitterOutput.centerInContainer();
+	
+	lineDisplay.init(0, 0, $(window).width(), $(window).height())
 	
 });
 
