@@ -50,6 +50,10 @@ tweetree = {
 					response = data.results[0].text;
 					
 					$(tweetree.container).append(response.toRoot());
+									
+					// It's poor form for the last parameter to be hardcoded, but whatever.
+					$(tweetree.container).data('lines', new Raphael($(tweetree.container)[0], branchManager.width.base,  500))
+									
 					$(tweetree.container).find(select.root).centerInContainer();
 						
 					tweetree.container.animate(
@@ -68,7 +72,8 @@ tweetree = {
 						
 						showLoadingIndicator(false);
 						
-						var root = $(tweetree.container).find(select.root);
+						var root = $(tweetree.container).find(select.root),
+							lines = $(tweetree.container).data('lines');
 						
 						for (this.i = 0; this.i < data.twobjects.length; this.i++){
 								
@@ -107,6 +112,13 @@ tweetree = {
 								}, 
 								{duration : 1000}
 							);
+							
+							var x1 = root.position().left + (branchManager.width.ofBranch / 2),
+								y1 = root.position().top + root.height(),
+								x2 = dest.left + (branchManager.width.ofBranch / 2),
+								y2 = dest.top;
+							
+							lines.path("M" + x1 + " " + y1 + "L" + x2 +" "+ y2)
 						});
 						
 						this.totalTweetsOutputted = $(select.root + prop.rootCount.toString() + select.branch);

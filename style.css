@@ -55,7 +55,7 @@ body{
 	cursor:			pointer;
 }
 
-/*.root .word,
+.root .word,
 .branch .word{
 	display:		block;
 	float:			left;
