@@ -22,7 +22,8 @@ select = {
 
 prop = {
 	rootCount : 0,
-	verticalBranchSpacing : 400
+	verticalBranchSpacing : 400,
+	animateInTime : 1000
 };
 
 debug = false;

@@ -42,12 +42,12 @@ body{
 }
 
 .root{
-	border:			solid 1px #f00;
+	/*border:			solid 1px #f00;*/
 	/*position:		absolute;*/
 }
 
 .branch{
-	border:			solid 1px #00f;
+	/*border:			solid 1px #00f;*/
 	/*position:		absolute;*/
 }
 
@@ -61,7 +61,7 @@ body{
 	float:			left;
 	margin:			0px auto;
 	padding:		0px 5px;
-}*/
+}
 
 .hidden{
 	display:		none;
