@@ -23,7 +23,8 @@ select = {
 prop = {
 	rootCount : 0,
 	verticalBranchSpacing : 400,
-	animateInTime : 1000
+	animateInTime : 1000,
+	treeConnectorCoords : {}
 };
 
 debug = false;
@@ -48,13 +49,18 @@ $(function(){
 			coord.left -= pxToInt(select.cached.twitterOutput.css('left'));
 			coord.top -= pxToInt(select.cached.twitterOutput.css('top'));
 			
+			var x1 = coord.left - (branchManager.width.base / 2),
+				y1 = coord.top,
+				x2 = coord.left - (branchManager.width.base / 2) + ( $(this).parent().data('dest').left - (branchManager.width.base / 2) ),
+				y2 = coord.top + prop.verticalBranchSpacing;
+			
 			tweetree.init({
 				query : $(this).html(),
 				container : select.cached.twitterOutput,
-				xOrigin : coord.left - (branchManager.width.base / 2),
-				yOrigin : coord.top,
-				x : coord.left - (branchManager.width.base / 2) + ( $(this).parent().data('dest').left - (branchManager.width.base / 2) ),
-				y : coord.top + prop.verticalBranchSpacing,
+				xOrigin : x1,
+				yOrigin : y1,
+				x : x2,
+				y : y2,
 				onRootLoad : slideToNewBranch
 				
 			});
