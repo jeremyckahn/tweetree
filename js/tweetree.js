@@ -69,20 +69,33 @@ tweetree = {
 					);
 					
 					// A good start.  Not complete, to be finished later.
-					/*
 					if (tweetree.options.x && tweetree.options.y){
+						var x2 = Math.abs(tweetree.options.x - tweetree.options.xOrigin),
+							y2 = Math.abs(tweetree.options.y - tweetree.options.yOrigin),
+							x1 = tweetree.options.xOrigin + x2,
+							y1 = tweetree.options.yOrigin;
+							
+						if (tweetree.options.x < tweetree.options.xOrigin){
+							// We are going to the left
+							x1 -= (x2 * 2) - (branchManager.width.base / 2)
+							
+						} else {
+							// We are going to the right
+							x1 += ( (branchManager.width.base / 2) - x2) 
+						}
+							
 						var connector = $('<div>', {
 								class: 'treeConnector'
 							}).
 							css({
-								height : Math.abs(tweetree.options.y - tweetree.options.yOrigin),
-								width : Math.abs(tweetree.options.x - tweetree.options.xOrigin),
-								background : '#f0f',
-								top : tweetree.options.yOrigin,
-								left : tweetree.options.xOrigin,
+								top : y1,
+								left : x1,
+								height : y2,
+								width : x2,
+								//background : '#f0f',
 								position : 'absolute'
 							}).appendTo(select.cached.twitterOutput)
-					}*/
+					}
 					
 					branchManager.onComplete = function(data){
 						
