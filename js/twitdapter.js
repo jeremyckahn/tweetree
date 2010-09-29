@@ -1,5 +1,5 @@
 twitdapter = {
-	debug : true
+	debug : false
 };
 
 function searchFor(options, callback){

@@ -63,7 +63,7 @@ tweetree = {
 							opacity : 1
 						}, 
 						{ // ops
-							duration: 1000,
+							duration: prop.animateInTime,
 							complete : tweetree.options.onRootLoad || null
 						}
 					);
@@ -95,21 +95,44 @@ tweetree = {
 								height : height,
 								width : width,
 								position : 'absolute'
-							}).appendTo(select.cached.twitterOutput)
-						
-						var calcPath = {
-								left : function(){
-									return 'M' + width + ' 0l' + -width + ' ' + height;
+							}).appendTo(select.cached.twitterOutput),
+							
+							calcPath = {
+								left : {
+									from : 
+										'M' + (width) +
+										' ' + prop.offset.treeConnectorStart + 
+										'L' + (width) + 
+										' ' + prop.offset.treeConnectorStart,
+									
+									to: 
+										'M' + (width) + 
+										' ' + prop.offset.treeConnectorStart + 
+										'l' + (-width) +
+										' ' + height
 								},
 								
-								right : function(){
-									return 'M0 0L' + width + ' ' + height;
+								right : {
+									from : 
+										'M0' +  
+										' ' + prop.offset.treeConnectorStart +
+										'L0' +  
+										' ' + prop.offset.treeConnectorStart,
+									to : 
+										'M0' + 
+										' ' + prop.offset.treeConnectorStart + 
+										'L' + width +
+										' ' + height
 								}
 							},
 							paper = new Raphael(connector.get(0), width, height)
+							conn = paper.path(calcPath[direction].from);
 							
-							log(calcPath[direction]())
-							paper.path(calcPath[direction]())
+						conn.animate({
+								path : calcPath[direction].to
+							}, 
+							prop.animateInTime * 2, 
+							'>');
 					}
 					
 					branchManager.onComplete = function(data){

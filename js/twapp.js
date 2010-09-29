@@ -24,7 +24,10 @@ prop = {
 	rootCount : 0,
 	verticalBranchSpacing : 400,
 	animateInTime : 1000,
-	treeConnectorCoords : {}
+	treeConnectorCoords : {},
+	offset : {
+		treeConnectorStart : 30 
+	}
 };
 
 debug = false;
