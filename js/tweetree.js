@@ -68,33 +68,48 @@ tweetree = {
 						}
 					);
 					
-					// A good start.  Not complete, to be finished later.
 					if (tweetree.options.x && tweetree.options.y){
-						var x2 = Math.abs(tweetree.options.x - tweetree.options.xOrigin),
-							y2 = Math.abs(tweetree.options.y - tweetree.options.yOrigin),
-							x1 = tweetree.options.xOrigin + x2,
-							y1 = tweetree.options.yOrigin;
+						var width = Math.abs(tweetree.options.x - tweetree.options.xOrigin),
+							height = Math.abs(tweetree.options.y - tweetree.options.yOrigin),
+							x1 = tweetree.options.xOrigin + width,
+							y1 = tweetree.options.yOrigin,
+							direction = 'right';
 							
 						if (tweetree.options.x < tweetree.options.xOrigin){
 							// We are going to the left
-							x1 -= (x2 * 2) - (branchManager.width.base / 2)
+							x1 -= (width * 2) - (branchManager.width.base / 2);
+							direction = 'left';
 							
 						} else {
 							// We are going to the right
-							x1 += ( (branchManager.width.base / 2) - x2) 
+							x1 += ( (branchManager.width.base / 2) - width);
+							direction = 'right';
 						}
 							
 						var connector = $('<div>', {
-								class: 'treeConnector'
-							}).
-							css({
+								'class': 'treeConnector'
+							})
+							.css({
 								top : y1,
 								left : x1,
-								height : y2,
-								width : x2,
-								//background : '#f0f',
+								height : height,
+								width : width,
 								position : 'absolute'
 							}).appendTo(select.cached.twitterOutput)
+						
+						var calcPath = {
+								left : function(){
+									return 'M' + width + ' 0l' + -width + ' ' + height;
+								},
+								
+								right : function(){
+									return 'M0 0L' + width + ' ' + height;
+								}
+							},
+							paper = new Raphael(connector.get(0), width, height)
+							
+							log(calcPath[direction]())
+							paper.path(calcPath[direction]())
 					}
 					
 					branchManager.onComplete = function(data){
