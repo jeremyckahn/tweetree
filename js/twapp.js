@@ -25,6 +25,8 @@ prop = {
 	verticalBranchSpacing : 400,
 	animateInTime : 1000,
 	treeConnectorCoords : {},
+	zoomLevel : 1.0,
+	zoomIncrement : 0.25,
 	offset : {
 		treeConnectorStart : 30 
 	}
@@ -87,7 +89,7 @@ $(function(){
 				});
 				
 			}
-		})
+		});
 	
 	tweetree.init({
 		query : 'jeremyckahn',
@@ -98,7 +100,9 @@ $(function(){
 	
 	select.cached.twitterOutput.centerInContainer();
 	
-	//lineDisplay.init(0, 0, $(window).width(), $(window).height())
+
+
+	$(document).keydown(handleKeyDown)
 	
 });
 
@@ -241,4 +245,53 @@ function showLoadingIndicator(show){
 	}else{
 		select.cached.loadingIndicator.addClass('hidden');
 	}
+}
+
+function handleKeyDown(ev){
+	
+	function scale(curVal){
+		prop.zoomLevel = curVal > 0 ? curVal : 0;
+		select.cached.twitterOutput.css({
+			'-webkit-transform' : 'scale(' + prop.zoomLevel + ')',
+			'-moz-transform' : 'scale(' + prop.zoomLevel + ')'
+		});
+	}
+	
+	var handlers = {
+		'187': function(){ // plus
+			$.valEase({
+				from : prop.zoomLevel,
+				to : prop.zoomLevel + (prop.zoomIncrement * 2),
+				duration : 500,
+				step : scale
+			});
+		},
+		
+		'61' : function(){
+			handlers['187']();
+		},
+		
+		'189': function(){ //minus
+			$.valEase({
+				from : prop.zoomLevel,
+				to : prop.zoomLevel - prop.zoomIncrement,
+				duration : 500,
+				step : scale
+			});
+		},
+		
+		'109' : function(){
+			handlers['189']();
+		},
+		
+		'48':function(){
+			$.valEase({
+				from : prop.zoomLevel,
+				to : 1,
+				duration : 500,
+				step : scale
+			});
+		}
+	}
+	handlers[ev.keyCode] && handlers[ev.keyCode]();
 }
